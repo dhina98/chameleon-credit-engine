@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: reward-service
+  datasource:
+    url: jdbc:postgresql://localhost:1298/chameleondb
+    username: postgres
+    password: Kowsidhina0609!
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+server:
+  port: 8083

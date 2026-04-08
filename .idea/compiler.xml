@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="categorization-service" target="17" />
+      <module name="categorization-service.main" target="17" />
+      <module name="categorization-service.test" target="17" />
+      <module name="credit-history-service" target="17" />
+      <module name="credit-history-service.main" target="17" />
+      <module name="credit-history-service.test" target="17" />
+      <module name="reward-service" target="17" />
+      <module name="reward-service.main" target="17" />
+      <module name="reward-service.test" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

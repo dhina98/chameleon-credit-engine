@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/categorization-service.iml" filepath="$PROJECT_DIR$/.idea/modules/categorization-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/categorization-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/categorization-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/categorization-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/categorization-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/credit-history-service.iml" filepath="$PROJECT_DIR$/.idea/modules/credit-history-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/credit-history-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/credit-history-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/credit-history-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/credit-history-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/reward-service.iml" filepath="$PROJECT_DIR$/.idea/modules/reward-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/reward-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/reward-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/reward-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/reward-service.test.iml" />
+    </modules>
+  </component>
+</project>

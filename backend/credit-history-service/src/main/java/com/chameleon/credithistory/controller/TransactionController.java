@@ -16,8 +16,8 @@ public class TransactionController {
     private TransactionRepository transactionRepository;
 
     @GetMapping("/{userId}")
-    public List<Transaction> getTransactionById(@PathVariable Long userid){
-        return transactionRepository.findByUserId(userid);
+    public List<Transaction> getTransactionById(@PathVariable Long userId){
+        return transactionRepository.findByUserId(userId);
     }
 
     @PostMapping

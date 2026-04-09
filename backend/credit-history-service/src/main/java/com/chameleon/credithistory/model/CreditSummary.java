@@ -5,10 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor // generate constructor for all fields unlike
+@AllArgsConstructor
+// generate constructor for all fields unlike
 // which is @requiredargsconstrutor generates Only "required" fields: final fields and those marked @NonNull.
-public class creditSummary {
-    private Long userId;
+public class CreditSummary {
+    private Long   customerId;
     private double food;
     private double travel;
     private double fuel;

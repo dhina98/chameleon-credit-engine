@@ -10,7 +10,7 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long userId;
+    private Long customerId;
     private String category; // e.g., "food", "travel", "groceries", "fuel"
     private Double amount;
     private LocalDate date;
@@ -19,8 +19,8 @@ public class Transaction {
     // Constructors
     public Transaction() {}
 
-    public Transaction(Long userId, String category, Double amount, LocalDate date, Boolean isSeasonal) {
-        this.userId = userId;
+    public Transaction(Long customerId, String category, Double amount, LocalDate date, Boolean isSeasonal) {
+        this.customerId = customerId;
         this.category = category;
         this.amount = amount;
         this.date = date;
@@ -35,12 +35,12 @@ public class Transaction {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getcustomerId() {
+        return customerId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setcustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public String getCategory() {

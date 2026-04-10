@@ -9,7 +9,17 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaConfig {
 
     @Bean
-    public NewTopic transactionEventTopic(){
-        return TopicBuilder.name("transactions-event").partitions(3).replicas(1).build();
+    public NewTopic transactionEventsTopic(){
+        return TopicBuilder.name("transaction-events").partitions(3).replicas(1).build();
+    }
+
+    @Bean
+    public NewTopic notificationEventsTopic(){
+        return (TopicBuilder.name("notification-events").partitions(3).replicas(1).build());
+    }
+
+    @Bean
+    public NewTopic categoryChangeEventstopic(){
+        return TopicBuilder.name("catagory-change-events").partitions(3).replicas(1).build();
     }
 }

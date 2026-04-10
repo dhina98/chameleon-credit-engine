@@ -1,5 +1,7 @@
 server:
   port: 8084
+  ssl:
+    enabled: false
 spring:
   application:
     name: credit-history-service
@@ -14,13 +16,13 @@ spring:
     show-sql: true
   kafka:
     bootstrap-servers: localhost:9092
-#    consumer:
-#      group-id: credit-history-service
-#      auto-offset-reset: earliest
-#      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
-#      value-deserializer: org.springframwork.kafka.support.serializer.JsonDeserializer
-#      properties:
-#        spring.json.trusted.packages: "*"
+    consumer:
+      group-id: credit-history-service
+      auto-offset-reset: earliest
+      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframwork.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
 logging:
   level:
     com.chameleon: DEBUG

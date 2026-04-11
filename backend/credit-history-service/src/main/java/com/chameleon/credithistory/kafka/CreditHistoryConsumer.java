@@ -16,7 +16,7 @@ public class CreditHistoryConsumer {
     @Autowired
     public CreditHistoryService creditHistoryService;
 
-    @KafkaListener(topics = "transaction-events", groupId = "credit-history-service")
+    @KafkaListener(topics = "transaction-events", groupId = "credit-history-group")
     public void consumeTransactionEvent(TransactionEvent transactionEvent){
         log.info("Received transaction event for customer: {}, transactionId: {}",
                 transactionEvent.getCustomerId(), transactionEvent.getTransactionId());

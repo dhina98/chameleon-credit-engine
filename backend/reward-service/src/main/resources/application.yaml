@@ -2,7 +2,7 @@ spring:
   application:
     name: reward-service
   datasource:
-    url: jdbc:postgresql://localhost:1298/chameleondb
+    url: jdbc:postgresql://localhost:1298/postgres
     username: postgres
     password: Kowsidhina0609!
     driver-class-name: org.postgresql.Driver
@@ -10,5 +10,15 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: reward-txn-group
+      auto-offset-reset: earliest
+      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframwork.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
 server:
   port: 8083

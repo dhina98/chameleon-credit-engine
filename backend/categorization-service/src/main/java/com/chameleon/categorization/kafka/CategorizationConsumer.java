@@ -21,14 +21,8 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class CategorizationConsumer {
-
-    @Autowired
     private SpendingDataPointRepository spendingDataPointRepository;
-
-    @Autowired
     private KNNClassifierService knnClassifierService;
-
-    @Autowired
     private final KafkaTemplate<String, CategoryChangeEvent> kafkaTemplate;
 
     private final Map<String, String> activeCategoryMap = new HashMap<>();

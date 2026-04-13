@@ -1,0 +1,113 @@
+#version: '3.8'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: zookeeper
+    environment: { ZOOKEEPER_CLIENT_PORT:2181, ZOOKEEPER_TICK_TIME:2000 }
+    ports: ["2181:2181"]
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka
+    depends_on: [zookeeper]
+    ports: [9092:9092]
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 3
+      KAFKA_LOG_RETENTION_MS: 604800000 # 7 days
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    depends_on: [kafka]
+    ports: [8090:8080]
+    environment:
+        KAKFA_CLUSTERS_0_NAME: chemeleon-local
+        KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+        KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    ports: ["1298:5432"]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Kowsidhina0609!
+    volumes:
+      - postgres-data:/var/libs/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  transaction-service:
+    build: ./backend/transaction-service
+    container_name: transaction-service
+    depends_on: [postgres, kafka]
+    ports: ["8081:8081"]
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:1298/chameleon_transactions
+      SPRING_DATASOURCE_PASSWORD: Kowsidhina0609!
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+
+  credit-history-service:
+    build: ./backend/credit-history-service
+    ports: ["8084:8084"]
+    depends_on: [kafka, postgres]
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:1298/chameleon_credit_history
+      SPRING_DATASOURCE_PASSWORD: Kowsidhina0609!
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+
+  categorization-service:
+    build: ./backend/categorization-service
+    ports: ["8082:8082"]
+    depends_on: [kafka, postgres]
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:1298/chameleon_categorization
+      SPRING_DATASOURCE_PASSWORD: Kowsidhina0609!
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+
+  card-engine-service:
+    build: ./backend/card-engine-service
+    ports: ["8080:8080"]
+    depends_on: [kafka, postgres]
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:1298/chameleon_cards
+      SPRING_DATASOURCE_PASSWORD: Kowsidhina0609!
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+
+  reward-service:
+    build: ./backend/reward-service
+    ports: ["8083:8083"]
+    depends_on: [kafka, postgres]
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:1298/chameleon_rewards
+      SPRING_DATASOURCE_PASSWORD: Kowsidhina0609
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+
+  notification-service:
+    build: ./backend/notification-service
+    ports: ["8085:8085"]
+    depends_on: [kafka, postgres]
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:1298/chameleon_notifications
+      SPRING_DATASOURCE_PASSWORD: Kowsidhina0609
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+
+  api-gateway:
+    build: ./backend/api-gateway
+    ports: ["8086:8086"]
+    depends_on:
+     - transaction-service
+     - credit-history-service
+     - categorization-service
+     - card-engine-service
+     - reward-service
+     - notification-service
+
+volumes:
+    postgres-data:

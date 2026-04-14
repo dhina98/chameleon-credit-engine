@@ -29,7 +29,7 @@ services:
     depends_on: [kafka]
     ports: [8090:8080]
     environment:
-        KAKFA_CLUSTERS_0_NAME: chemeleon-local
+        KAKFA_CLUSTERS_0_NAME: chameleon-local
         KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
         KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
   postgres:

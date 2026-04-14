@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Service
 public class KNNClassifierService {
 
-    @Value("${chemeleon.knn.k}")
+    @Value("${chameleon.knn.k}")
     private int k;
 
     public String classify(List<SpendingDataPoint> last30Days){

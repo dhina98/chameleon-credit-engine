@@ -39,7 +39,7 @@ jobs:
         working-directory: backend/${{matrix.service}}
         run: |
           docker build -t ${{secrets.DOCKER_USERNAME}}/chameleon-${{matrix.service}}:latest .
-          docker push ${{secrets.DOCKER_USERNAME}}/chemeleon-${{matrix.service}}:latest
+          docker push ${{secrets.DOCKER_USERNAME}}/chameleon-${{matrix.service}}:latest
   deploy:
     needs: build
     runs-on: ubuntu-latest

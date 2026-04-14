@@ -56,7 +56,7 @@ jobs:
           target: /home/ubuntu/chameleon
 
       - name: Deploy to EC2
-        uses: appleboy/ssh-action@1.0.3
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{secrets.EC2_HOST}}
           username: ${{secrets.EC2_USER}}

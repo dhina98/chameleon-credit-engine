@@ -72,7 +72,7 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
 
   card-engine-service:
-    build: 'image: dhinagarandocker/chameleon-card-engine-service:latest'
+    image: dhinagarandocker/chameleon-card-engine-service:latest
     ports: ["8080:8080"]
     depends_on: [kafka, postgres]
     environment:

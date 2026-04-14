@@ -44,7 +44,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   transaction-service:
-    build: 'image: dhinagarandocker/chameleon-transaction-service:latest'
+    image: dhinagarandocker/chameleon-transaction-service:latest
     container_name: transaction-service
     depends_on: [postgres, kafka]
     ports: ["8081:8081"]
@@ -54,7 +54,7 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
 
   credit-history-service:
-    build: 'image: dhinagarandocker/chameleon-credit-history-service:latest'
+    image: dhinagarandocker/chameleon-credit-history-service:latest
     ports: ["8084:8084"]
     depends_on: [kafka, postgres]
     environment:
@@ -63,7 +63,7 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
 
   categorization-service:
-    build: 'image: dhinagarandocker/chameleon-categorization-service:latest'
+    image: dhinagarandocker/chameleon-categorization-service:latest
     ports: ["8082:8082"]
     depends_on: [kafka, postgres]
     environment:
@@ -81,7 +81,7 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
 
   reward-service:
-    build: 'image: dhinagarandocker/chameleon-reward-service:latest'
+    image: dhinagarandocker/chameleon-reward-service:latest
     ports: ["8083:8083"]
     depends_on: [kafka, postgres]
     environment:
@@ -90,7 +90,7 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
 
   notification-service:
-    build: 'image:dhinagarandocker/chameleon-notification-service:latest'
+    image: dhinagarandocker/chameleon-notification-service:latest
     ports: ["8085:8085"]
     depends_on: [kafka, postgres]
     environment:
@@ -99,7 +99,7 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
 
   api-gateway:
-    build: 'image: dhinagarandocker/chameleon-api-gateway:latest'
+    image: dhinagarandocker/chameleon-api-gateway:latest
     ports: ["8086:8086"]
     depends_on:
      - transaction-service

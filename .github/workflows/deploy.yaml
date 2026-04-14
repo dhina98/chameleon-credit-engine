@@ -28,7 +28,7 @@ jobs:
 
       - name: Build Jar with Gradle
         working-directory: backend/${{matrix.service}}
-        run: chmod gradlew bootJar -x test
+        run: ./gradlew bootJar -x test
 
       - uses: docker/login-action@v3
         with:

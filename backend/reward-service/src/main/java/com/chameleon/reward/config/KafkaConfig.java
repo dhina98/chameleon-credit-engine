@@ -1,38 +1,20 @@
-package com.chameleon.credithistory.config;
+package com.chameleon.reward.config;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
-import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.converter.JacksonJsonMessageConverter;
-
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
 @EnableKafka
 public class KafkaConfig {
-
-    @Bean
-    public NewTopic transactionEventsTopic(){
-        return TopicBuilder.name("transaction-events").partitions(4).replicas(1).build();
-    }
-
-    @Bean
-    public NewTopic notificationEventsTopic(){
-        return (TopicBuilder.name("notification-events").partitions(3).replicas(1).build());
-    }
-
-    @Bean
-    public NewTopic categoryChangeEventstopic(){
-        return TopicBuilder.name("category-change-events").partitions(3).replicas(1).build();
-    }
 
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
@@ -47,6 +29,7 @@ public class KafkaConfig {
                 new StringDeserializer()
         );
     }
+
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory =

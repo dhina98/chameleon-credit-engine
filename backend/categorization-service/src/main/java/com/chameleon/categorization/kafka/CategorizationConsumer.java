@@ -21,14 +21,18 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class CategorizationConsumer {
-    private SpendingDataPointRepository spendingDataPointRepository;
-    private KNNClassifierService knnClassifierService;
+
+    private final SpendingDataPointRepository spendingDataPointRepository;
+
+    private final KNNClassifierService knnClassifierService;
+
     private final KafkaTemplate<String, CategoryChangeEvent> kafkaTemplate;
 
     private final Map<String, String> activeCategoryMap = new HashMap<>();
 
-    @KafkaListener(topics = "transactions-event", groupId = "categorization-group")
+    @KafkaListener(topics = "transaction-events", groupId = "categorization-group")
     public void onTransaction(TransactionEvent event) {
+        log.info("Received transaction event for customer{}", event.getCustomerId());
         spendingDataPointRepository.save(SpendingDataPoint.builder().
                 customerId(event.getCustomerId())
                 .amount((event.getAmount()))
@@ -41,12 +45,12 @@ public class CategorizationConsumer {
         String newCategory = knnClassifierService.classify(last30Days);
         String previousCatgeory = activeCategoryMap.getOrDefault(event.getCustomerId(), "GENERAL");
 
-        if (!newCategory.equals(previousCatgeory)) {
+//        if (!newCategory.equals(previousCatgeory)) {
             double getConfidenceLevel = knnClassifierService.calculateConfidence(last30Days, newCategory);
-            if (getConfidenceLevel > 70.0) {
+            if (getConfidenceLevel > 50.0) {
                 log.info("Category changed: {} -> {} for customer {}",
                         previousCatgeory, newCategory, event.getCustomerId());
-                kafkaTemplate.send("catagory-change-events",event.getCustomerId(), CategoryChangeEvent.builder()
+                kafkaTemplate.send("category-change-events",event.getCustomerId(), CategoryChangeEvent.builder()
                         .customerId(event.getCustomerId())
                         .oldCategory(previousCatgeory)
                         .newCategory(newCategory)
@@ -55,6 +59,6 @@ public class CategorizationConsumer {
                         .build());
                 activeCategoryMap.put(event.getCustomerId(), newCategory);
             }
-        }
+//        }
     }
 }

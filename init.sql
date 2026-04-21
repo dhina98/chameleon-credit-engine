@@ -1,0 +1,1 @@
+CREATE DATABASE chameleon_transactions; CREATE DATABASE chameleon_credit_history; CREATE DATABASE chameleon_categorization; CREATE DATABASE chameleon_cards; CREATE DATABASE chameleon_rewards; CREATE DATABASE chameleon_notifications;

@@ -5,30 +5,47 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      routes:
-        - id: notification-service
-          uri: http://localhost:8085
-          predicates: [/api/notifications/**]
-        - id: credit-history-service
-          uri: http://localhost:8084
-          predicates: [/api/credit-history/**]
-        - id: card-engine-service
-          uri: http://localhost:8080
-          predicates: [/api/cards/**]
-        - id: categorization-service
-          uri: http://localhost:8082
-          predicates: [/api/categories/**]
-        - id: reward-service
-          uri: http://localhost:8083
-          predicates: [/api/rewards/**]
-        - id: transaction-service
-          uri: http://localhost:8081
-          predicates: [/api/transactions/**]
+      mvc:
+        routes:
+          - id: notification-service
+            uri: http://localhost:8085
+            predicates:
+              - Path=/api/notifications/**
+          - id: credit-history-service
+            uri: http://localhost:8084
+            predicates:
+              - Path=/api/credit-history/**
+          - id: card-engine-service
+            uri: http://localhost:8080
+            predicates:
+              - Path=/api/**, /api/cards
+          - id: categorization-service
+            uri: http://localhost:8082
+            predicates:
+              - Path=/api/categories/**
+          - id: reward-service
+            uri: http://localhost:8083
+            predicates:
+              - Path=/api/rewards/**
+          - id: transaction-service
+            uri: http://localhost:8081
+            predicates:
+              - Path=/api/transactions/**
+
 
       globalcors:
-        corsConfigurations:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:  # CHANGED to kebab-case
           '[/**]':
-            allowedOrigins: http://localhost:3000
-            allowedMethods: GET, POST, PATCH, PUT, DELETE, OPTIONS
+            allowedOrigins: "http://localhost:3000"
+            allowedMethods: "*"
             allowedHeaders: "*"
             allowCredentials: true
+management:
+  endpoint:
+    gateway:
+      enabled: true      # Step 1: Enable the specific gateway endpoint
+  endpoints:
+    web:
+      exposure:
+        include: mappings, health, info  # Step 2: Expose it over HTTP

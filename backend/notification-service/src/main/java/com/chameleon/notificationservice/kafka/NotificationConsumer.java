@@ -13,11 +13,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class NotificationConsumer {
 
-    private NotificationRepository notificationRepository;
+    private final NotificationRepository notificationRepository;
 
     @KafkaListener(topics = "notification-events", groupId = "notification-group")
     public void onNotification(NotificationEvent event){
-
+        log.info("Received notification event for customer: {}, message: {}",
+                event.getCustomerId(), event.getMessage());
         notificationRepository.save(Notification.builder()
                 .customerId(event.getCustomerId())
                 .message(event.getMessage())

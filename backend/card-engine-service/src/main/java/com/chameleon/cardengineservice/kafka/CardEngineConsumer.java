@@ -18,11 +18,11 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class CardEngineConsumer {
 
-    private CustomerCardRepository customerCardRepository;
+    private final CustomerCardRepository customerCardRepository;
 
     private final KafkaTemplate<String, NotificationEvent> kafkaTemplate;
 
-    @KafkaListener(topics = "catagory-change-events", groupId ="card-engine-group")
+    @KafkaListener(topics = "category-change-events", groupId ="card-engine-group")
     public void consumeCategoryChangeEvent(CategoryChangeEvent event){
         log.info("Received category change event for customer: {}, newCategory: {}",
                 event.getCustomerId(),  event.getNewCategory());

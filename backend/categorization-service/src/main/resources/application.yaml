@@ -20,9 +20,14 @@ spring:
     consumer:
       group-id: categorization-group
       auto-offset-reset: earliest
-      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
       properties:
+        spring:
+          json:
+            value:
+              default:
+                type: com.chameleon.categorization.dto.TransactionEvent
         spring.json.trusted.packages: "*"
 server:
   port: 8082

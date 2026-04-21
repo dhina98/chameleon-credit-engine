@@ -2,6 +2,7 @@ package com.chameleon.notificationservice.controller;
 
 import com.chameleon.notificationservice.Repository.NotificationRepository;
 import com.chameleon.notificationservice.model.Notification;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,19 +10,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/notifications")
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class NotificationController {
 
-    private NotificationRepository notificationRepository;
+    private final NotificationRepository notificationRepository;
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<List<Notification>> get(@PathVariable String customerId){
+    public ResponseEntity<List<Notification>> get(@PathVariable("customerId") String customerId){
 
         return ResponseEntity.ok(notificationRepository.findByCustomerIdOrderByNotifiedAtDesc(customerId));
     }
 
     @PatchMapping("/{id}/read")
-    public ResponseEntity<Void> markAsRead(@PathVariable Long id){
+    public ResponseEntity<Void> markAsRead(@PathVariable("id") Long id){
         notificationRepository.findById(id).
            ifPresent(n -> {
             n.setRead(true);

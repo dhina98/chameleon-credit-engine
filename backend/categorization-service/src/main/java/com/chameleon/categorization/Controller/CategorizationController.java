@@ -17,14 +17,14 @@ public class CategorizationController {
     private SpendingDataPointRepository spendingDataPointRepository;
 
     @GetMapping("/{customerId}/current")
-    public ResponseEntity<List<SpendingDataPoint>> getCurrent(@PathVariable String customerId) {
+    public ResponseEntity<List<SpendingDataPoint>> getCurrent(@PathVariable("customerId") String customerId) {
         LocalDateTime from = LocalDateTime.now().minusDays(30);
         List<SpendingDataPoint> getLastMonth = spendingDataPointRepository.findByCustomerIdAndSpentAtAfter(customerId, from);
         return ResponseEntity.ok(getLastMonth);
     }
 
     @GetMapping("/{customerId}/spending-points")
-    public ResponseEntity<List<SpendingDataPoint>> getSpendingPoints(@PathVariable String customerId) {
+    public ResponseEntity<List<SpendingDataPoint>> getSpendingPoints(@PathVariable("customerId") String customerId) {
         List<SpendingDataPoint> points = spendingDataPointRepository.findByCustomerId(customerId);
         return ResponseEntity.ok(points);
     }

@@ -23,12 +23,12 @@ public class TransactionController {
         return ResponseEntity.ok(transactionService.process(txn));
     }
     @GetMapping("/{customerId}")
-    public ResponseEntity<List<Transaction>>getAll(@PathVariable String customerId){
+    public ResponseEntity<List<Transaction>> getAll(@PathVariable("customerId") String customerId){
         return ResponseEntity.ok(transactionService.getAll(customerId));
     }
 
     @GetMapping("/{customerId}/last30Days")
-    public ResponseEntity<List<Transaction>> getLast30Days(@PathVariable String customerId){
+    public ResponseEntity<List<Transaction>> getLast30Days(@PathVariable("customerId")String customerId){
         return ResponseEntity.ok(transactionService.last30Days(customerId));
     }
 

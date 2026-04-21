@@ -1,3 +1,5 @@
+server:
+  port: 8083
 spring:
   application:
     name: reward-service
@@ -10,15 +12,16 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+#  kafka:
+#    bootstrap-servers: localhost:9092
+#    consumer:
+#      group-id: reward-group-1
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+#      properties:
+#        spring.json.type.mapping: "transactionEvent:com.chameleon.reward.dto.TransactionEvent,categoryChangeEvent:com.chameleon.reward.dto.CategoryChangeEvent"
+#        spring.json.add.type.headers: false
+#        spring.json.trusted.packages: "*"
 
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: reward-txn-group
-      auto-offset-reset: earliest
-      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframwork.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: "*"
-server:
-  port: 8083
+

@@ -3,6 +3,7 @@ package com.chameleon.reward.service;
 import com.chameleon.reward.Respository.RewardRespository;
 import com.chameleon.reward.model.Reward;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,7 +12,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RewardService {
 
-    private RewardRespository rewardRespository;
+    private final RewardRespository rewardRespository;
 
     public Optional<Reward> getByCustomerId(String customerId){
         return rewardRespository.findByCustomerId(customerId);

@@ -17,12 +17,13 @@ import java.time.LocalDateTime;
 @Slf4j
 public class RewardConsumer {
 
-    private RewardRespository rewardRespository;
+    private final RewardRespository rewardRespository;
 
-    private RewardService rewardService;
+    private final RewardService rewardService;
 
-    @KafkaListener(topics = "transaction-events", groupId = "reward-txn-group")
+    @KafkaListener( topics = "transaction-events", groupId = "reward-group")
     public void onTransaction(TransactionEvent event) {
+        log.info("Received transaction event for customer:{}",event.getCustomerId());
         double pts = 0.0;
         if (event.getCategory().equals("FOOD")) {
             pts = event.getAmount().doubleValue() * 0.05;
@@ -39,7 +40,7 @@ public class RewardConsumer {
         log.info("Added {} points for {} to {} and Total {}", pts, event.getCustomerId(), event.getCategory(), rewards.getTotalPoints());
     }
 
-    @KafkaListener(topics = "catagory-change-events", groupId = "reward-category-group")
+    @KafkaListener(topics = "category-change-events", groupId = "reward-category-group")
     public void onCategoryChange(CategoryChangeEvent event) {
         log.info("Received category change event for customer: {}, oldCategory: {}, newCategory: {}",
                 event.getCustomerId(), event.getOldCategory(), event.getNewCategory());

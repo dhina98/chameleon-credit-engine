@@ -24,7 +24,6 @@ import java.time.LocalDateTime;
 @Builder
 public class CreditHistory {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long   id;
     @Column(nullable = false)
     private String customerId;

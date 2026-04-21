@@ -18,7 +18,7 @@ public class CreditHistoryController {
 
     // GET /api/credit-history/{customerId} : All history records for a customer
     @GetMapping("/{customerId}")
-    public ResponseEntity<List<CreditHistory>> getAll(@PathVariable String customerId) {
+    public ResponseEntity<List<CreditHistory>> getAll(@PathVariable("customerId") String customerId) {
         List<CreditHistory> history = creditHistoryService.getAllByCustomer(customerId);
         if (history.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -28,27 +28,27 @@ public class CreditHistoryController {
 
     //GET api/credit-history//{customerId}/last30Days : Last 30 days of transactions for a customer
     @GetMapping("/{customerId}/last30Days")
-    public ResponseEntity<List<CreditHistory>> getLast30Days(@PathVariable String customerId){
+    public ResponseEntity<List<CreditHistory>> getLast30Days(@PathVariable("customerId") String customerId){
         return ResponseEntity.ok(creditHistoryService.getLastNDays(customerId, 30));
     }
 
     // fetch for Flexible window
     @GetMapping("/{customerId}/last-days/{days}")
-    public ResponseEntity<List<CreditHistory>> getLastNdays(@PathVariable String customerId,@PathVariable int days ) {
+    public ResponseEntity<List<CreditHistory>> getLastNdays(@PathVariable("customerId") String customerId,@PathVariable int days ) {
         return ResponseEntity.ok(creditHistoryService.getLastNDays(customerId, days));
     }
 
     // GET /api/credit-history/{customerId}/category/{category} : Filter by spending category e.g. /category/FOOD
     @GetMapping("/{customerId}/category/{category}")
     public ResponseEntity<List<CreditHistory>> getByCategory(
-            @PathVariable String customerId, @PathVariable String category) {
+            @PathVariable("customerId") String customerId, @PathVariable("category") String category) {
         return ResponseEntity.ok(
                 creditHistoryService.getByCategory(customerId, category.toUpperCase()));
     }
 
     // GET /api/credit-history/record/{id} : Single record by database ID
     @GetMapping("/record/{id}")
-    public ResponseEntity<CreditHistory> getById(@PathVariable Long id) {
+    public ResponseEntity<CreditHistory> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(creditHistoryService.getById(id));
     }
 

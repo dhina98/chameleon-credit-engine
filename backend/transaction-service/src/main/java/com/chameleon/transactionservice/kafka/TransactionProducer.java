@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class TransactionProducer {
 
     private static final String TOPIC = "transaction-events";
+
     private final KafkaTemplate<String, TransactionEvent> kafkaTemplate;
 
     public void publishTransactionEvent(TransactionEvent event) {
